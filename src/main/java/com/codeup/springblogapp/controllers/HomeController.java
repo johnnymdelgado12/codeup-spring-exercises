@@ -1,4 +1,4 @@
-package com.codeup.springblogapp;
+package com.codeup.springblogapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,12 @@ public class HomeController {
             return "This is the landing page!";
         }
 
-    @GetMapping("/home")
-    public String welcome() {
-        return "home";
-    }
+        @GetMapping("/home")
+        public String welcome() {
+            return "home";
+        }
+
+
     }
 
 

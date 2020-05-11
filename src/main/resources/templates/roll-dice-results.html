@@ -1,0 +1,14 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<body>
+<h1>Your results:</h1>
+<h3>The roll was: <span th:text="${dieRoll}"></span></h3>
+<h3>You guessed: <span th:text="${guess}"></span></h3>
+<h3><span th:if="${correct}">You got it right!</span></h3>
+<h3><span th:if="${correct}"><a href="/roll-dice">Play again?</a></span></h3>
+<h3><span th:unless="${correct}"><a href="/roll-dice">Try again</a></span></h3>
+</body>
+</html>
