@@ -1,7 +1,9 @@
 package com.codeup.springblogapp.controllers;
 
 
+import com.codeup.springblogapp.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PostController {
 
-    @GetMapping("/posts")
-    @ResponseBody
-    public String getPost() {
-        return "<h1>Posts Index Page</h1>";
+    @GetMapping("/posts/index")
+    public String getPost(Model model) {
+        model.addAttribute("post", PostRepository.findall());
+        return "post/index";
     }
 
     @GetMapping("/posts/{id}")

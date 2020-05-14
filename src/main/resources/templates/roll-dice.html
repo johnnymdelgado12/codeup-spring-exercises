@@ -1,8 +1,11 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partials :: head('Roll Dice')"></head>
 
 <body>
+<nav th:replace="partials/partials :: header"></nav>
+<nav th:replace="partials/partials :: navbar"></nav>
 
 <h1>Welcome to the Dice Roll Guess Game!</h1>
 <h2>Select a link below to guess the roll.</h2>
