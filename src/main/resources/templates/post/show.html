@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="partials/partials :: head('View Blog')"></head>
 <body>
-<h1>Blog</h1>
+<nav th:replace="partials/partials :: header"></nav>
+<nav th:replace="partials/partials :: navbar"></nav>
 
-<h2 th:text="${posts.title}"></h2>
-<p th:text="${posts.body}"></p>
+<div class="d-flex justify-content-center">
+<h1 th:text="${posts.title}"></h1>
+</div>
+<div class="d-flex justify-content-center">
+    <p th:text="${posts.body}"></p>
+    <br>
+</div>
+<div class="d-flex justify-content-center">
+    <a href="/posts" class="btn btn-primary">BACK</a>
+    <a th:href="@{'/posts/' + ${posts.id} + '/edit'}" class="btn btn-primary">EDIT</a>
+    <a th:href="@{|/posts/" class="btn btn-primary">DELETE</a>
+</div>
 
+<footer th:replace="partials/partials :: footer"></footer>
+<script th:replace="partials/partials :: scripts"></script>
 </body>
 </html>

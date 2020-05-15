@@ -8,8 +8,19 @@
 <h1>Here are all  the blogs</h1>
 
 <ul th:each="post : ${posts}">
-    <li><a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}"></a></li>
+    <li style="font-weight: bold"><a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}"></a></li>
 </ul>
+
+<footer th:replace="partials/partials :: footer"></footer>
+<script th:replace="partials/partials :: scripts"></script>
 
 </body>
 </html>
+
+<!--.jumbotron-background {-->
+<!--    position: fixed;     -->
+<!--    right: 0;     -->
+<!--    bottom: 0;     -->
+<!--    min-width: 100%;     -->
+<!--    min-height: 100%;     -->
+<!--    opacity: .2; } -->
