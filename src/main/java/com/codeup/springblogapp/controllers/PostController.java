@@ -74,20 +74,20 @@ public class PostController {
     }
 
 
-
+//********************* method for taking user to delete post page **********************
     @GetMapping("/posts/{id}/delete")
     public String getDeletePostForm(@PathVariable long id, Model model){
-        Post singlePost = postRepo.getOne(id);
-        model.addAttribute("post", singlePost);
-        return "posts/delete";
+        Post deletePost = postRepo.getOne(id);
+        model.addAttribute("post", deletePost);
+        return "post/delete";
     }
 
 
-
+//******************** method for deleting post and rerouting user to post page ****************
     @PostMapping("/posts/{id}/delete")
-    public String deletePost(@PathVariable long id){
-        Post singlePost = postRepo.getOne(id);
-        postRepo.delete(singlePost);
+    public String deletePost(@ModelAttribute Post post){
+        Post deletePost = postRepo.getOne(post.getId());
+        postRepo.delete(deletePost);
         return "redirect:/posts";
     }
 

@@ -15,7 +15,7 @@
 <div class="d-flex justify-content-center">
     <a href="/posts" class="btn btn-primary">BACK</a>
     <a th:href="@{'/posts/' + ${posts.id} + '/edit'}" class="btn btn-primary">EDIT</a>
-    <a th:href="@{|/posts/" class="btn btn-primary">DELETE</a>
+    <a th:href="@{|/posts/${posts.id}/delete|}" class="btn btn-primary">DELETE</a>
 </div>
 
 <footer th:replace="partials/partials :: footer"></footer>

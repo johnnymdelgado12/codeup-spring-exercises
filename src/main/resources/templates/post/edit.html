@@ -1,6 +1,6 @@
-<!--<!DOCTYPE html>-->
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partials :: head('Create Post')"></head>
+<head th:replace="partials/partials :: head('Edit Post')"></head>
 <body>
 <nav th:replace="partials/partials :: header"></nav>
 <nav th:replace="partials/partials :: navbar"></nav>
@@ -13,7 +13,8 @@
         <br><br>
         <label for="blog-body">Body:</label><br>
         <textarea name="blog-body" id="blog-body" class="field" rows="4" cols="50" th:text="${post.body}"></textarea><br>
-        <button>Save Changes</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="/posts" class="btn btn-primary">BACK</a>
     </form>
 </div>
 
