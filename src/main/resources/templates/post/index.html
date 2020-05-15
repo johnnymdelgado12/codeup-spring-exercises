@@ -5,5 +5,11 @@
 <body>
 <nav th:replace="partials/partials :: header"></nav>
 <nav th:replace="partials/partials :: navbar"></nav>
+<h1>Here are all  the blogs</h1>
+
+<ul th:each="post : ${posts}">
+    <li><a th:href="@{'/posts/' + ${post.id}}" th:text="${post.title}"></a></li>
+</ul>
+
 </body>
 </html>
