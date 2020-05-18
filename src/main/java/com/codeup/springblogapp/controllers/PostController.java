@@ -4,6 +4,7 @@ import com.codeup.springblogapp.model.Post;
 import com.codeup.springblogapp.model.User;
 import com.codeup.springblogapp.repositories.PostRepository;
 import com.codeup.springblogapp.repositories.UserRepository;
+import com.codeup.springblogapp.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PostController {
 
+    private EmailService emailService;
     private PostRepository postRepo;
     private UserRepository userRepo;
 
-    public PostController(PostRepository postRepo, UserRepository userRepo) {
+    public PostController(EmailService emailService, PostRepository postRepo, UserRepository userRepo) {
+        this.emailService = emailService;
         this.postRepo = postRepo;
         this.userRepo = userRepo;
     }
@@ -45,6 +48,7 @@ public class PostController {
         Post post = new Post();
         post.setUser(user);
         model.addAttribute("post", post);
+
         return "/post/create";
     }
 
@@ -54,11 +58,14 @@ public class PostController {
     @PostMapping("/posts/create")
     public String submitCreatePost(@ModelAttribute Post post) {
         postRepo.save(post);
+        emailService.prepareAndSend(post,"You have created a new post",
+                "Your post \""+post.getTitle()+
+                        "\" was successfully created.\nYou can see it at http://localhost:8080/posts/"+post.getId()+"\nThank you.");
         return "redirect:/posts";
     }
 
 
-//****************** method for getting edit page **************************
+//****************** method for getting edit page ***********************************************************
     @GetMapping("/posts/{id}/edit")
     public String getEditPostForm(@PathVariable long id, Model model){
         Post post = postRepo.getOne(id);
@@ -68,24 +75,16 @@ public class PostController {
 
 
 
-//****************** method for editing post and rerouting user to post page ******************
+//****************** method for editing post and rerouting user to post page *********************************
     @PostMapping("/posts/{id}/edit")
     public String savePostEdit(@ModelAttribute Post post){
         postRepo.save(post);
         return "redirect:/posts/" + post.getId();
     }
 
-//    @GetMapping("/posts/editcreate")
-//    public String editCreatePost(Model model) {
-//        User user = userRepo.getOne(1L);
-//        Post post = new Post();
-//        post.setUser(user);
-//        model.addAttribute("post", post);
-//        return "/post/edit";
-//    }
 
 
-//********************* method for taking user to delete post page **********************
+//********************* method for taking user to delete post page ******************************************
     @GetMapping("/posts/{id}/delete")
     public String getDeletePostForm(@PathVariable long id, Model model){
         Post deletePost = postRepo.getOne(id);
