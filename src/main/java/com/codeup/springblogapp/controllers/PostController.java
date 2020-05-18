@@ -1,7 +1,9 @@
 package com.codeup.springblogapp.controllers;
 
 import com.codeup.springblogapp.model.Post;
+import com.codeup.springblogapp.model.User;
 import com.codeup.springblogapp.repositories.PostRepository;
+import com.codeup.springblogapp.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private PostRepository postRepo;
+    private UserRepository userRepo;
 
-    public PostController(PostRepository postRepo) {
+    public PostController(PostRepository postRepo, UserRepository userRepo) {
         this.postRepo = postRepo;
+        this.userRepo = userRepo;
     }
+
 
 
     //******************** method for view all the blogs on the index page*************************
@@ -35,7 +40,8 @@ public class PostController {
 
 //******************** method for taking user to create post page *******************************
     @GetMapping("/posts/create")
-    public String createPost() {
+    public String createPost(Model model) {
+        model.addAttribute("post", new Post());
         return "post/create";
     }
 
@@ -43,11 +49,13 @@ public class PostController {
 
 //******************* method for creating a new post and rerouting user to post/{id} page *******************
     @PostMapping("/posts/create")
-    public String submitCreatePost(@RequestParam(name = "blog-title") String title, @RequestParam(name = "blog-body") String body) {
-        Post newPost = new Post();
-        newPost.setTitle(title);
-        newPost.setBody(body);
-        newPost = this.postRepo.save(newPost);
+    public String submitCreatePost(@ModelAttribute Post post) {
+        User user = userRepo.getOne(1L);
+//        Post newPost = new Post();
+//        newPost.setTitle(title);
+//        newPost.setBody(body);
+//        newPost.setUser(user);
+        postRepo.save(post);
         return "redirect:/posts";
     }
 

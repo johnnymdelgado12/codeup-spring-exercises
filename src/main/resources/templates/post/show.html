@@ -12,6 +12,7 @@
     <p th:text="${posts.body}"></p>
     <br>
 </div>
+<h5 th:text="${posts.user.email}"></h5>
 <div class="d-flex justify-content-center">
     <a href="/posts" class="btn btn-primary">BACK</a>
     <a th:href="@{'/posts/' + ${posts.id} + '/edit'}" class="btn btn-primary">EDIT</a>
