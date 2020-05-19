@@ -5,6 +5,7 @@ import com.codeup.springblogapp.model.User;
 import com.codeup.springblogapp.repositories.PostRepository;
 import com.codeup.springblogapp.repositories.UserRepository;
 import com.codeup.springblogapp.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,9 @@ public class PostController {
 //******************* method for creating a new post and rerouting user to post/{id} page *******************
     @PostMapping("/posts/create")
     public String submitCreatePost(@ModelAttribute Post post) {
-        postRepo.save(post);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(user);
+        post = postRepo.save(post);
         emailService.prepareAndSend(post,"You have created a new post",
                 "Your post \""+post.getTitle()+
                         "\" was successfully created.\nYou can see it at http://localhost:8080/posts/"+post.getId()+"\nThank you.");
