@@ -13,7 +13,8 @@
     <br>
 </div>
 <div class="d-flex justify-content-center">
-    <h5 th:text="${posts.user.email}"></h5></div>
+    <h5>Written By: <span th:text="${posts.user.username}"></span></h5>
+</div>
 <div class="d-flex justify-content-center">
     <a href="/posts" class="btn btn-primary" style="margin: 5px">BACK</a>
     <a th:href="@{'/posts/' + ${posts.id} + '/edit'}" style="margin: 5px" class="btn btn-primary">EDIT</a>
